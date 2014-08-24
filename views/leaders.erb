@@ -1,0 +1,7 @@
+<h1> Leaderboard for the NFL </h1>
+<ul>
+<% @team.each do |row| %>
+<li> <%= row %> Wins: <%= @wins[row] %> Losses: <%= @losses[row] %>
+ </li>
+<%end%>
+</ul>
