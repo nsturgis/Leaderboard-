@@ -6,10 +6,10 @@ require 'sinatra/reloader'
 winners = []
 CSV.foreach('teams.csv',headers:true,header_converters: :symbol) do |row|
  if row[:home_score].to_i > row[:away_score].to_i
-  winners << row[:home_team]
-elsif row[:away_score].to_i > row[:home_score].to_i
-  winners << row[:away_team]
-end
+    winners << row[:home_team]
+  elsif row[:away_score].to_i > row[:home_score].to_i
+    winners << row[:away_team]
+  end
 end
 
 losers = []
@@ -21,17 +21,15 @@ CSV.foreach('teams.csv',headers:true,header_converters: :symbol) do |row|
   end
 end
 
-
 win_count = Hash.new 0
-  winners.each do |row|
-    win_count[row] += 1
-  end
+winners.each do |row|
+  win_count[row] += 1
+end
 
 loss_count = Hash.new 0
-  losers.each do |row|
-    loss_count[row] += 1
-  end
-
+losers.each do |row|
+  loss_count[row] += 1
+end
 
 def find_teams
   teams = []
@@ -42,14 +40,11 @@ def find_teams
   teams.uniq
 end
 
-
 ##======ROUTES===========#######
-
 
 get '/leaderboard' do
   @team = find_teams
   @wins = win_count
   @losses = loss_count
-erb :leaders
+  erb :leaders
 end
-
